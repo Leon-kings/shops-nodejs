@@ -19,12 +19,14 @@ export const createUser = async (req, res) => {
         });
         res.status(200).json({
             status: 'success',
+            message: "user created successfully",
             newUser,
         });
     } catch (err) {
         res.status(400).json({
             status: 'failed',
-            message: err.message,
+            message: 'failed to register user'
+           
         });
     }
 };
@@ -34,11 +36,13 @@ export const getUserById = async (req, res) => {
         const user = await User.findById(req.params.id);
         res.status(200).json({
             status: 'success',
+            message: "user fetched successfully",
             user,
         });
     } catch (error) {
         res.status(400).json({
-            message: error.message,
+            message: "Oops sorry , an error in fetching user ",
+
         });
     }
 };
