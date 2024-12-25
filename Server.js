@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
 // Database connection
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.DB)
     .then(() => console.log('Database connected'))
     .catch(err => console.log(err));
 
