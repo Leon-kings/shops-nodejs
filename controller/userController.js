@@ -2,7 +2,6 @@ import User from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
-// export const createUser = async (req, res) => {
 //     try {
 //         const user = await User.findOne({ email: req.body.email });
 //         if (user) {
@@ -62,7 +61,10 @@ export const createUser = async (req, res) => {
      
         
     } catch (err) {
-     return res.status(400).json({ status: "failed", message: err.message });
+     return res.status(400).json({ 
+        status: "failed", 
+        message: err.message 
+    });
       
     }
   };
