@@ -16,9 +16,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
 // Database connection
-mongoose.connect(process.env.DB)
+// mongoose.connect(process.env.DB)
+//     .then(() => console.log('Database connected'))
+//     .catch(err => console.log(err));
+// Mongoose Connection
+mongoose.connect(process.env.DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    connectTimeoutMS: 30000,
+    socketTimeoutMS: 45000,
+    bufferCommands: false,
+  })
     .then(() => console.log('Database connected'))
-    .catch(err => console.log(err));
+    .catch((err) => {
+      console.error('Database connection error:', err);
+      process.exit(1); // Exit the process on connection failure
+    });
 
 // Routes
 app.get('/', (req, res) => {
