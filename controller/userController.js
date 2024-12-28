@@ -2,35 +2,70 @@ import User from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
+// export const createUser = async (req, res) => {
+//     try {
+//         const user = await User.findOne({ email: req.body.email });
+//         if (user) {
+//             return res.status(400).json({
+//                 message: 'User already exists',
+//             });
+//         }
+//         const salt = await bcrypt.genSalt(10);
+//         const hashedPassword = await bcrypt.hash(req.body.password, salt);
+//         const newUser = await User.create({
+//             name: req.body.name,
+//             email: req.body.email,
+//             phone: req.body.phone,
+//             password: hashedPassword,
+//         });
+//         res.status(201).json({
+//             status: 'success',
+//             message: 'user created successfully',
+//             newUser,
+//         });
+        
+//     } catch (err) {
+//         res.status(400).json({
+//             status: 'failed',
+//             message: 'failed to register user'
+           
+//         });
+//     }
+// };
 export const createUser = async (req, res) => {
     try {
-        const user = await User.findOne({ email: req.body.email });
-        if (user) {
-            return res.status(400).json({
-                message: 'User already exists',
-            });
-        }
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
-        const newUser = await User.create({
-            name: req.body.name,
-            email: req.body.email,
-            password: hashedPassword,
+      const user = await User.findOne({ email: req.body.email });
+      if (user) {
+        return res
+          .status(400)
+          .json({
+            status: "failed",
+            message: "user with this email already exists",
+          });
+      }
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(req.body.password, salt);
+      const newUser = await User.create({
+        fullname: req.body.fullname,
+        email: req.body.email,
+        phone: req.body.phone,
+        password: hashedPassword,
+      });
+      res
+        .status(200)
+        .json({
+          status: "success",
+          message: "user created successfully",
+          data: newUser,
+          
         });
-        res.status(200).json({
-            status: 'success',
-            message: "user created successfully",
-            newUser,
-        });
+     
+        
     } catch (err) {
-        res.status(400).json({
-            status: 'failed',
-            message: 'failed to register user'
-           
-        });
+     return res.status(400).json({ status: "failed", message: err.message });
+      
     }
-};
-
+  };
 export const getUserById = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);

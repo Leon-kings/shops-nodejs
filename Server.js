@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
     res.status(200).json({ status: 'success', message: "Welcome to my API" });
 });
 
-app.use('/', userRouter);
+app.use('/users', userRouter);
 
 
 // Start the server
