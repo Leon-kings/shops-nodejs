@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const transport = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: 'akingeneye@alwaysdata.net',
     port: 587,
     secure: false,
     auth: {
