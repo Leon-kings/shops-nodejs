@@ -12,7 +12,7 @@ export const createTestimony = async (req, res) => {
         });
     }
     const newTestimony = await Testimony.create({
-     name: req.body.name,
+      name: req.body.name,
       email: req.body.email,
       testimony: req.body.testimony,
    
@@ -33,8 +33,7 @@ export const createTestimony = async (req, res) => {
 };
 export const getTestimony = async (req, res) => {
     try {
-      const {limit = 10 ,search, page } = req.params;
-      const testimony = await Testimony.find().limit(limit)
+      const testimony = await Testimony.find()
     return res
         .status(200)
         .json({

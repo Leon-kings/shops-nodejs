@@ -1,5 +1,5 @@
 import express from 'express';
-import { createTestimony, getTestimony} from '../controllers/testmonyController.js';
+import { createTestimony, getTestimony} from '../controller/testmonyController.js';
 const router = express.Router();
 
 router.get('/', getTestimony);

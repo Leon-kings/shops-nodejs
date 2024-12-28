@@ -7,21 +7,11 @@ const bookSchema = mongoose.Schema({
         required: true,
         unique: true
     },
-   productname: {
+    message: {
         type: String,
         required: false,
         unique: true
-    },
-    reason: {
-        type: String,
-        required: false,
-        unique: true
-    },
-    contact: {
-        type: String,
-        required: false,
-        unique: true
-    },
+     }
   
 })
 

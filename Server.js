@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import userRouter from './routes/userRoute.js';
-
+import testimonyRouter from './routes/testimonyRouter.js'
+import bookRouter from './routes/bookRouter.js'
 
 dotenv.config();
 
@@ -16,22 +17,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
 // Database connection
-// mongoose.connect(process.env.DB)
-//     .then(() => console.log('Database connected'))
-//     .catch(err => console.log(err));
-// Mongoose Connection
-mongoose.connect(process.env.DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    connectTimeoutMS: 30000,
-    socketTimeoutMS: 45000,
-    bufferCommands: false,
-  })
+mongoose.connect(process.env.DB)
     .then(() => console.log('Database connected'))
-    .catch((err) => {
-      console.error('Database connection error:', err);
-      process.exit(1); // Exit the process on connection failure
-    });
+    .catch(err => console.log(err));
 
 // Routes
 app.get('/', (req, res) => {
@@ -39,7 +27,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', userRouter);
-
+app.use('/testimony', testimonyRouter);
+app.use('/messages', bookRouter);
 
 // Start the server
 app.listen(PORT, () => console.log(`App started on port ${PORT}`));
