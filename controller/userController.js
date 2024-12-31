@@ -40,7 +40,6 @@ export const createUser = async (req, res) => {
     }
 };
 
-// export const createUser = async (req, res) => {
 //     try {
 //     const user = await User.findOne({ email: req.body.email });
 //       if (user) {
