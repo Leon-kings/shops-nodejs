@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import userRouter from './routes/userRoute.js';
 import testimonyRouter from './routes/testimonyRouter.js'
 import bookRouter from './routes/bookRouter.js'
-
+import cors from "cors"
 dotenv.config();
 
 const app = express();
@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
-
+app.use(cors())
 // Database connection
 mongoose.connect(process.env.DB)
     .then(() => console.log('Database connected'))
