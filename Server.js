@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import userRouter from './routes/userRoute.js';
 import testimonyRouter from './routes/testimonyRouter.js'
 import bookRouter from './routes/bookRouter.js'
+import SubscriptionRouter from './routes/SubscriptionRouter.js'
 import cors from "cors"
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 app.use('/users', userRouter);
 app.use('/testimony', testimonyRouter);
 app.use('/messages', bookRouter);
+app.use('/subscription', SubscriptionRouter);
 
 // Start the server
 app.listen(PORT, () => console.log(`App started on port ${PORT}`));
