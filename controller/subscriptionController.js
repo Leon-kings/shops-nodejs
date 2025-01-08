@@ -1,6 +1,6 @@
 import Subscription from "../models/subscription.js";
 
-// create Subscription booking
+// create Subscription
 export const createSubscription = async (req, res) => {
     const subscrptn = await Subscription.findOne({ email: req.body.email });
     if (subscrptn) {
@@ -22,7 +22,7 @@ export const createSubscription = async (req, res) => {
     return res.status(400).json({ status: "failed", message: err.message });
   }
 };
-// get all Subscription booking
+// get all Subscription 
 export const getSubscription = async (req, res) => {
   try {
     const subscrptn = await Subscription.find();
@@ -36,7 +36,7 @@ export const getSubscription = async (req, res) => {
   }
 };
 
-// delete Subscription booking
+// delete Subscription 
 
 export const deleteSubscription = async (req, res) => {
   try {
