@@ -2,6 +2,10 @@ import Post from '../models/post.js';
 import uploadFile from '../helpers/cloud.js';
 
 export const createPost = async (req, res) => {
+   // Handle potential errors during file upload
+   if (!req.file) {
+    return res.status(400).json({ error: 'No image file uploaded' });
+  }
     console.log(req.file);
   const response = await uploadFile(req.file, res);
   try {
