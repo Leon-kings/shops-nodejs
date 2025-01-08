@@ -1,11 +1,12 @@
 import express from 'express';
-import multer from 'multer';
-import { createPost } from '../controller/postController.js';
+import { createPost, getPosts } from '../controller/postController.js';
+import upload from '../helpers/multer.js';
+import Authorization from '../middlewares/authorization.js';
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/' }); // Temporary storage
 
-// Route for creating a post
-router.post('/', upload.single('image'), createPost);
+// Define routes
+router.post('/post', upload.single('image'), Authorization, createPost);
+router.get('/posts', getPosts);
 
 export default router;

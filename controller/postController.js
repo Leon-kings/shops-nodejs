@@ -1,27 +1,29 @@
-import cloudinary from 'cloudinary';
 import Post from '../models/post.js';
-
-cloudinary.v2.config({
-  cloud_name: 'your_cloud_name',
-  api_key: 'your_api_key',
-  api_secret: 'your_api_secret',
-});
+import uploadFile from '../helpers/cloud.js';
 
 export const createPost = async (req, res) => {
+  const response = await uploadFile(req.file, res);
   try {
-    const result = await cloudinary.v2.uploader.upload(req.file.path);
-
-    const post = await Post.create({
-      title: req.body.title,
-      content: req.body.content,
-      imageUrl: result.secure_url,
-      author: req.body.author,
-      category: req.body.category,
+    const newPost = await Post.create({
+      image: response.secure_url,
+      body: req.body.body,
+      author: req.user.name,
     });
+    res.status(200).json({
+      status: 'success',
+      message: 'Your post was created successfully',
+      newPost,
+    });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
 
-    res.status(201).json({ message: 'Post created successfully', post });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error creating post' });
+export const getPosts = async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 };
