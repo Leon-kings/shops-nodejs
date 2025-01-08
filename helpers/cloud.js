@@ -11,7 +11,10 @@ cloudinary.v2.config({
 
 const uploadFile = async (file, res) => {
   try {
-    const response = await cloudinary.v2.uploader.upload(file.path);
+    // const response = await cloudinary.v2.uploader.upload(file.path);
+    const response = await cloudinary.uploader.upload(file.path)
+    .then(result => console.log(result))
+    .catch(error => console.error(error));
     return response;
   } catch (err) {
     return res.status(500).send(err);

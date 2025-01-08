@@ -2,6 +2,7 @@ import Post from '../models/post.js';
 import uploadFile from '../helpers/cloud.js';
 
 export const createPost = async (req, res) => {
+    console.log(req.file);
   const response = await uploadFile(req.file, res);
   try {
     const newPost = await Post.create({
