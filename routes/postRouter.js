@@ -6,7 +6,7 @@ import Authorization from '../middlewares/authorization.js';
 const router = express.Router();
 
 // Define routes
-router.post('/post', upload.single('image'), Authorization, createPost);
-router.get('/posts', getPosts);
+router.post('/', upload.single('image'), Authorization, createPost);
+router.get('/', getPosts);
 
 export default router;
