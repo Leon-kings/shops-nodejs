@@ -27,8 +27,15 @@ export const createPost = async (req, res) => {
 export const getPosts = async (req, res) => {
   try {
     const posts = await Post.find();
-    res.status(200).json(posts);
+    res.status(200).json({
+        status:'success',
+        message:'fetched successfull',
+        posts    
+    }
+       );
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(400).json({ 
+        message: err.message });
+        console.log(err)
   }
 };
