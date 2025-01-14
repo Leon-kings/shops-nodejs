@@ -45,11 +45,11 @@ export const deleteOder = async (req, res) => {
 //
 export const getOderById = async (req, res) => {
   try {
-    const message = await Book.findById(req.params.id);
+    const messages = await Book.findById(req.params.id);
     res.status(200).json({
       status: "success",
       message: "message fetched successfully",
-      message,
+      messages,
     });
   } catch (error) {
     res.status(400).json({
