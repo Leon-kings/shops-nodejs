@@ -11,8 +11,10 @@ export const createPost = async (req, res) => {
   try {
     const newPost = await Post.create({
       image: response.secure_url,
-      body: req.body.body,
-      author: req.user.name,
+      description: req.body.description,
+      name: req.body.name,
+      email:req.body.email,
+      price:req.body.price,
     });
     res.status(200).json({
       status: 'success',
