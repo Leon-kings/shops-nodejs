@@ -40,42 +40,6 @@ export const createUser = async (req, res) => {
     }
 };
 
-//     try {
-//     const user = await User.findOne({ email: req.body.email });
-//       if (user) {
-//         return res
-//           .status(400)
-//           .json({
-//             status: "failed",
-//             message: "user with this email already exists",
-//           });
-//       }
-//       const salt = await bcrypt.genSalt(10);
-//       const hashedPassword = await bcrypt.hash(req.body.password, salt);
-//       const newUser = await User.create({
-//         fullname: req.body.fullname,
-//         email: req.body.email,
-//         phone: req.body.phone,
-//         password: hashedPassword,
-//       });
-//       res
-//         .status(200)
-//         .json({
-//           status: "success",
-//           message: "user created successfully",
-//           data: newUser,
-          
-//         });
-     
-        
-//     } catch (err) {
-//      return res.status(400).json({ 
-//         status: "failed", 
-//         message: err.message 
-//     });
-      
-//     }
-//   };
 export const getUserById = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);

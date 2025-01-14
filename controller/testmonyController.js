@@ -45,3 +45,58 @@ export const getTestimony = async (req, res) => {
     return res.status(400).json({ status: "failed", message: err.message });
     }
   };
+export const getTestimonyById = async (req, res) => {
+  try{
+      const testimony = await Testimony.findById(req.params.id);
+      res.status(200).json({
+          status:'success',
+          message:'fetched successfully',
+          testimony
+      })
+  } catch(error){
+      res.status(400).json({
+          message: error.message
+      })
+  }
+}
+
+export const updateTestimony = async (req, res) => {
+  try{
+      const testimony = await Testimony.findById({ _id: req.params.id})
+      if(!testimony){
+          res.status(404).json({
+              status: 'failed',
+              message: 'testimony not found'
+          });
+      }
+      const newTestimony = await Testimony.findByIdAndUpdate( req.params.id, {
+        name: req.body.name,
+        email: req.body.email,
+        testimony: req.body.testimony
+      });
+      res.status(200).json({
+          message:'testimony updated successfully',
+          testimony
+      })
+  } catch(err){
+      res.status(400).json({
+          status: 'failed',
+          message: err.message
+      })
+  }
+}
+
+export const deleteTestimony = async (req, res) => {
+  try{
+      const testimony = await Testimony.findByIdAndDelete(req.params.id);
+      res.status(200).json({
+          status:'success',
+          message: 'testimony deleted successfully'
+      })
+  } catch(err){
+      res.status(400).json({
+          status: 'failed',
+          message: err.message
+      })
+  }
+}
