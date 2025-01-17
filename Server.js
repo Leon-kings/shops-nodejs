@@ -6,7 +6,7 @@ import userRouter from './routes/userRoute.js';
 import testimonyRouter from './routes/testimonyRouter.js'
 import bookRouter from './routes/bookRouter.js'
 import SubscriptionRouter from './routes/SubscriptionRouter.js'
-import postRouter from './routes/postRouter.js'
+// import postRouter from './routes/postRouter.js'
 import cors from "cors"
 dotenv.config();
 
@@ -32,7 +32,7 @@ app.use('/users', userRouter);
 app.use('/testimony', testimonyRouter);
 app.use('/messages', bookRouter);
 app.use('/subscription', SubscriptionRouter);
-app.use('/posts', postRouter);
+// app.use('/posts', postRouter);
 
 // Start the server
 app.listen(PORT, () => console.log(`App started on port ${PORT}`));
