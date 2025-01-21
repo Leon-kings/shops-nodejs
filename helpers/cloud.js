@@ -11,18 +11,6 @@ cloudinary.v2.config({
   api_secret: process.env.API_SECRET,
 });
 
-// const uploadFile = async (file, res) => {
-//   try {
-//     // const response = await cloudinary.v2.uploader.upload(file.path);
-  
-//     const response = await cloudinary.uploader.upload(upload)
-//     .then(result => console.log(result))
-//     .catch(error => console.error(error));
-//     return response;
-//   } catch (err) {
-//     return res.status(500).send(err);
-//   }
-// };
 const uploadFile = async (file) => {
   return new Promise((resolve, reject) => {
     cloudinary.uploader.upload(file.path, (err, result) => {
