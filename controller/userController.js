@@ -124,8 +124,10 @@ export const authUser = async (req, res) => {
         if (await bcrypt.compare(req.body.password, user.password)) {
             res.status(200).json({
                 message: 'success',
-                token: jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' }),
+                token: jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '3h' }),
                 user,
+                
+                
             });
         } else {
             res.status(400).json({
