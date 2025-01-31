@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import { createPost } from "../controller/postController.js";
+import { createPost, getPosts } from "../controller/postController.js";
 
 const router = express.Router();
 
@@ -9,5 +9,6 @@ const storage = multer.memoryStorage(); // Stores file in memory (use diskStorag
 const upload = multer({ storage });
 
 router.post("/create", upload.single("image"), createPost);
+router.get('/', getPosts)
 
 export default router;
