@@ -6,7 +6,7 @@ export const createPost = async (req, res) => {
   //  if (!req.file) {
   //   return res.status(400).json({ error: 'No image file uploaded' });
   // }
-    console.log(req.file);
+  //   console.log(req.file);
   const response = await uploadFile(req.file, res);
   try {
     const newPost = await Post.create({
