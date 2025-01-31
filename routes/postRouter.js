@@ -9,6 +9,6 @@ const storage = multer.memoryStorage(); // Stores file in memory (use diskStorag
 const upload = multer({ storage });
 
 router.post("/create", upload.single("image"), createPost);
-router.get('/', getPosts)
+router.get('/', getPosts);
 
 export default router;
