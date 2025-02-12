@@ -110,39 +110,51 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-// export const authUser = async (req, res) => {
-//     try {
-//         const user = await User.findOne({ email: req.body.email });
-//         if (!user) {
-//             return res.status(404).json({
-//                 status: 'failed',
-//                 message: 'User with this email does not exist',
-//             });
-//         }
-//         if (await bcrypt.compare(req.body.password, user.password)) {
-//             res.status(200).json({
-//                 message: 'success',
-//                 token: jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '3h' }),
-//                 user,
 
-//             });
-//         } else {
-//             res.status(400).json({
-//                 status: 'failed',
-//                 message: 'Invalid credentials',
-//             });
-//         }
-//     } catch (err) {
-//         res.status(400).json({
-//             message: err.message,
-//         });
+// export const authUser = async (req, res) => {
+//   try {
+//     console.log("Request Body:", req.body);
+
+//     const user = await User.findOne({ email: req.body.email });
+
+//     if (!user) {
+//       return res.status(404).json({
+//         status: "failed",
+//         message: "User with this email does not exist",
+//       });
 //     }
+
+//     console.log("Stored Hashed Password:", user.password);
+
+//     if (await bcrypt.compare(req.body.password, user.password)) {
+//       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+//         expiresIn: "3h",
+//       });
+
+//       console.log("Generated Token:", token);
+
+//       return res.status(200).json({
+//         message: "success",
+//         token,
+//         user,
+//       });
+//     } else {
+//       return res.status(400).json({
+//         status: "failed",
+//         message: "Invalid credentials",
+//       });
+//     }
+//   } catch (err) {
+//     console.error("Error:", err.message);
+//     return res.status(500).json({ message: err.message });
+//   }
 // };
 export const authUser = async (req, res) => {
   try {
     console.log("Request Body:", req.body);
 
-    const user = await User.findOne({ email: req.body.email });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(404).json({
@@ -153,24 +165,33 @@ export const authUser = async (req, res) => {
 
     console.log("Stored Hashed Password:", user.password);
 
-    if (await bcrypt.compare(req.body.password, user.password)) {
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "3h",
-      });
-
-      console.log("Generated Token:", token);
-
-      return res.status(200).json({
-        message: "success",
-        token,
-        user,
-      });
-    } else {
+    // Compare provided password with stored hash
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
       return res.status(400).json({
         status: "failed",
         message: "Invalid credentials",
       });
     }
+
+    // Generate token
+    const token = jwt.sign(
+      { userId: user._id, role: user.role }, // Store role in token for future use
+      process.env.JWT_SECRET,
+      { expiresIn: "3h" }
+    );
+
+    console.log("Generated Token:", token);
+
+    // Determine user role and dashboard route
+    const dashboardRoute = user.role === "admin" ? "/Dashboard" : "/Udashboard";
+
+    return res.status(200).json({
+      message: "success",
+      token,
+      user,
+      dashboard: dashboardRoute, // Send dashboard route in response
+    });
   } catch (err) {
     console.error("Error:", err.message);
     return res.status(500).json({ message: err.message });
